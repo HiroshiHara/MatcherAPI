@@ -8,6 +8,13 @@ public final class UserUtil {
 		
 	}
 
+	/**
+	 * displayUserDataメソッド
+	 * 引数で渡されたUserインスタンスの情報をコンソールに出力します。
+	 * @param user Userクラスのインスタンス
+	 * @throws IllegalArgumentException 引数がnullの場合
+	 * @throws IllegalStateException インスタンスのpasswordフィールドがnullだった場合
+	 */
 	public static void displayUserData(User user) {
 		if (user == null) {
 			throw new IllegalArgumentException("ユーザ情報が設定されていません");
@@ -18,8 +25,4 @@ public final class UserUtil {
 		System.out.println(user.toString());
 	}
 	
-	public static void main(String[] args) {
-		User user = new User("HiroshiHara", "mrbob403", 27);
-		UserUtil.displayUserData(user);
-	}
 }
