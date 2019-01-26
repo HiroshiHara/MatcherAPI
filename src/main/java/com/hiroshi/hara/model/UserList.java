@@ -1,7 +1,7 @@
 package com.hiroshi.hara.model;
 
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 import com.hiroshi.hara.beans.User;
@@ -11,21 +11,12 @@ import com.hiroshi.hara.beans.User;
  * @version 1.0
  */
 
-public class UserList {
+public class UserList implements Iterable<String>{
 	
-	private static UserList singleton = new UserList();
-	private static HashMap<String, User> userList;
+	private LinkedHashMap<String, User> userList;
 
-	private UserList() {
-		userList = new HashMap<String, User>();
-	}
-	
-	/**
-	 * このクラスのシングルトンなインスタンスを取得します
-	 * @return UserListのシングルトンなインスタンス
-	 */
-	public static UserList getInstance() {
-		return singleton;
+	public UserList() {
+		userList = new LinkedHashMap<String, User>();
 	}
 	
 	/**
@@ -35,7 +26,7 @@ public class UserList {
 	 * @throws IllegalArgumentException 指定されたUserインスタンスがnullだった場合
 	 * @throws IllegalArgumentException 指定されたUserインスタンスが既に追加されていた場合
 	 */
-	public static void addUser(String userId, User user) {
+	public void addUser(String userId, User user) {
 		if (user == null) {
 			throw new IllegalArgumentException("追加するユーザ情報に誤りがあります");
 		}
@@ -52,7 +43,7 @@ public class UserList {
 	 * @param userId ユーザID
 	 * @return 文字列がnullもしくは空文字ならtrue
 	 */
-	private static boolean isUserIdNullorEmpty(String userId) {
+	private boolean isUserIdNullorEmpty(String userId) {
 		if (userId == null || userId.equals("")) {
 			return true;
 		}
@@ -66,7 +57,7 @@ public class UserList {
 	 * @return userListにインスタンスが追加されている場合true
 	 * @throws IllegalArgumentException 引数がnullもしくは空文字の場合
 	 */
-	public static boolean hasUser(String userId) {
+	public boolean hasUser(String userId) {
 		if (isUserIdNullorEmpty(userId)) {
 			throw new IllegalArgumentException("hasUserメソッドに不正な値が渡されました");
 		}
@@ -82,7 +73,7 @@ public class UserList {
 	 * @param userId ユーザID
 	 * @throws IllegalArgumentException 引数がnullもしくは空文字の場合
 	 */
-	public static void removeUser(String userId) {
+	public void removeUser(String userId) {
 		if (isUserIdNullorEmpty(userId)) {
 			throw new IllegalArgumentException("removeUserメソッドに不正な値が渡されました");
 		}
@@ -92,11 +83,20 @@ public class UserList {
 	}
 	
 	/**
-	 * このクラスが持つuserListフィールドに登録されているインスタンスの文字列表現をすべてコンソールに出力します。
+	 * このクラスが持つuserListフィールドにおけるキー値の反復子を返します。
+	 * @return it String型のキー値の反復子
 	 */
-	public static void displayUserList() {
+	public Iterator<String> iterator() {
 		Set<String> keySet = userList.keySet();
 		Iterator<String> it = keySet.iterator();
+		return it;
+	}
+	
+	/**
+	 * このクラスが持つuserListフィールドに登録されているインスタンスの文字列表現をすべてコンソールに出力します。
+	 */
+	public void displayUserList() {
+		Iterator<String> it = iterator();
 		while (it.hasNext()) {
 			String userId = it.next();
 			System.out.println(userList.get(userId));

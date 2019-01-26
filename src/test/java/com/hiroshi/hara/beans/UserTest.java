@@ -1,6 +1,10 @@
 package com.hiroshi.hara.beans;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -26,6 +30,30 @@ public class UserTest {
 		// Verify
 		String expected = "氏名：Hiroshi" + System.getProperty("line.separator") + "年齢：" + 27;
 		assertThat(actual, is(expected));
+	}
+	
+	/*
+	 * 以下はMatcher APIの基本機能を記したメモ
+	 */
+	@Test
+	public void getUserNameTest() throws Exception {
+		// SetUp
+		User sut = new User("Hiroshi", "403", 27);
+		// Exercise
+		String actual = sut.getUserName();
+		// Verify
+		
+		// isメソッド
+		assertThat(actual, is("Hiroshi"));
+		// notメソッド
+		assertThat(actual, is(not("Bob")));
+		// notNullValueメソッド
+		assertThat(actual, is(notNullValue()));
+		// sameInstanceメソッド(オブジェクトの同一性の比較(=＝))
+		assertThat(actual, is(not(sameInstance(new String("Hiroshi")))));
+		// instanceOfメソッド(実測値が期待するクラスと互換性を持つ方であるかどうかを比較する)
+		assertThat(actual, is(instanceOf(String.class)));
+		
 	}
 
 }
