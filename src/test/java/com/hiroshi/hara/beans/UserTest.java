@@ -9,6 +9,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * @author HiroshiHara
+ * @version 1.0
+ */
+
 public class UserTest {
 
 	@Test

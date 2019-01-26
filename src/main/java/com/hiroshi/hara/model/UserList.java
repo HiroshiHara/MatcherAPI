@@ -23,8 +23,8 @@ public class UserList implements Iterable<String>{
 	 * このクラスが持つuserListフィールドに指定されたIDをキーとしてUserインスタンスを追加します。
 	 * @param userId ユーザID
 	 * @param user　Userクラスのインスタンス
-	 * @throws IllegalArgumentException 指定されたUserインスタンスがnullだった場合
-	 * @throws IllegalArgumentException 指定されたUserインスタンスが既に追加されていた場合
+	 * @exception IllegalArgumentException 指定されたUserインスタンスがnullだった場合
+	 * @exception IllegalArgumentException 指定されたUserインスタンスが既に追加されていた場合
 	 */
 	public void addUser(String userId, User user) {
 		if (user == null) {
@@ -37,7 +37,6 @@ public class UserList implements Iterable<String>{
 	}
 	
 	/**
-	 * このメソッドはこのクラス内でのみ利用されるメソッドです。<br>
 	 * 引数で指定された文字列がnullもしくは空文字であるかどうかを判定します。
 	 * もしそうであるならtrueを返し、そうでないならfalseを返します。
 	 * @param userId ユーザID
@@ -55,7 +54,7 @@ public class UserList implements Iterable<String>{
 	 * もし追加されている場合、trueを返します。
 	 * @param userId ユーザID
 	 * @return userListにインスタンスが追加されている場合true
-	 * @throws IllegalArgumentException 引数がnullもしくは空文字の場合
+	 * @exception IllegalArgumentException 引数がnullもしくは空文字の場合
 	 */
 	public boolean hasUser(String userId) {
 		if (isUserIdNullorEmpty(userId)) {
@@ -71,7 +70,7 @@ public class UserList implements Iterable<String>{
 	 * このクラスが持つuserListフィールドから、指定されたユーザIDで登録されているインスタンスを削除します。
 	 * 指定されたユーザIDが存在しなくとも何も起こりません。
 	 * @param userId ユーザID
-	 * @throws IllegalArgumentException 引数がnullもしくは空文字の場合
+	 * @exception IllegalArgumentException 引数がnullもしくは空文字の場合
 	 */
 	public void removeUser(String userId) {
 		if (isUserIdNullorEmpty(userId)) {
@@ -90,6 +89,36 @@ public class UserList implements Iterable<String>{
 		Set<String> keySet = userList.keySet();
 		Iterator<String> it = keySet.iterator();
 		return it;
+	}
+	
+	/**
+	 * このインスタンスの文字列表現を返します。<br>
+	 * <br>
+	 * 出力例<br>
+	 * <br>
+	 * 
+	 * 氏名：HiroshiHara<br>
+	 * 年齢：27
+	 * <br>
+	 * 氏名：SatouTarou<br>
+	 * 年齢：33
+	 * <br>
+	 * 氏名：TanakaJirou
+	 * 年齢：83
+	 * <br>
+	 * 
+	 * @return UserListインスタンスの文字列表現
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		Iterator<String> it = iterator();
+		while (it.hasNext()) {
+			String userId = it.next();
+			sb.append(userList.get(userId).toString());
+			sb.append(System.getProperty("line.separator"));
+		}
+		return sb.toString();
 	}
 	
 	/**
