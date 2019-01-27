@@ -50,7 +50,7 @@ public final class UserUtil {
 		if (isNullThisUser(user)) {
 			throw new IllegalArgumentException("ユーザ情報が設定されていません");
 		}
-		if (user.getPassword() == null) {
+		if (user.getPassword() == null || user.getPassword() == "") {
 			throw new IllegalStateException("パスワードが設定されていません");
 		}
 		System.out.println(user.toString());

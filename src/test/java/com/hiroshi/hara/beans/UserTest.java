@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -41,7 +42,7 @@ public class UserTest {
 	 * 以下はMatcher APIの基本機能を記したメモ
 	 */
 	@Test
-	public void getUserNameTest() throws Exception {
+	public void testGetUserName() throws Exception {
 		// SetUp
 		User sut = new User("Hiroshi", "403", 27);
 		// Exercise
@@ -58,6 +59,31 @@ public class UserTest {
 		assertThat(actual, is(not(sameInstance(new String("Hiroshi")))));
 		// instanceOfメソッド(実測値が期待するクラスと互換性を持つ方であるかどうかを比較する)
 		assertThat(actual, is(instanceOf(String.class)));
+		
+	}
+	
+	@Ignore
+	public void testSetUserName() throws Exception {
+		
+	}
+	
+	@Ignore
+	public void testGetPassword() throws Exception {
+		
+	}
+	
+	@Ignore
+	public void testSetPassword() throws Exception {
+		
+	}
+	
+	@Ignore
+	public void testGetAge() throws Exception {
+		
+	}
+	
+	@Ignore
+	public void testSetAge() throws Exception {
 		
 	}
 

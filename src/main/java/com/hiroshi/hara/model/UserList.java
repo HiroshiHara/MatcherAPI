@@ -42,7 +42,7 @@ public class UserList implements Iterable<String>{
 	 * @param userId ユーザID
 	 * @return 文字列がnullもしくは空文字ならtrue
 	 */
-	private boolean isUserIdNullorEmpty(String userId) {
+	private boolean isUserIdNullOrEmpty(String userId) {
 		if (userId == null || userId.equals("")) {
 			return true;
 		}
@@ -57,7 +57,7 @@ public class UserList implements Iterable<String>{
 	 * @exception IllegalArgumentException 引数がnullもしくは空文字の場合
 	 */
 	public boolean hasUser(String userId) {
-		if (isUserIdNullorEmpty(userId)) {
+		if (isUserIdNullOrEmpty(userId)) {
 			throw new IllegalArgumentException("hasUserメソッドに不正な値が渡されました");
 		}
 		if (userList.containsKey(userId)) {
@@ -73,7 +73,7 @@ public class UserList implements Iterable<String>{
 	 * @exception IllegalArgumentException 引数がnullもしくは空文字の場合
 	 */
 	public void removeUser(String userId) {
-		if (isUserIdNullorEmpty(userId)) {
+		if (isUserIdNullOrEmpty(userId)) {
 			throw new IllegalArgumentException("removeUserメソッドに不正な値が渡されました");
 		}
 		if (hasUser(userId)) {
@@ -130,6 +130,11 @@ public class UserList implements Iterable<String>{
 			String userId = it.next();
 			System.out.println(userList.get(userId));
 		}
+	}
+	
+	// getter
+	public LinkedHashMap<String, User> getUserList() {
+		return userList;
 	}
 	
 }

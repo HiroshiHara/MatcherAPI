@@ -1,9 +1,10 @@
 package com.hiroshi.hara.model;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
@@ -57,5 +58,83 @@ public class UserUtilTest {
 		Boolean actual = (Boolean) method.invoke(sut, user);
 		// Verify
 		assertThat(actual, is(true));
+	}
+	
+	@Test
+	public void isNullThisUserでインスタンスを渡したときにfalseが得られるかどうか() throws Exception {
+		// SetUp
+		User user = new User("test", "pass", 1);
+		UserUtil sut = (UserUtil) object;
+		Method method = UserUtil.class.getDeclaredMethod("isNullThisUser", User.class);
+		method.setAccessible(true);
+		// Exercise
+		Boolean actual = (Boolean) method.invoke(sut, user);
+		// Verify
+		assertThat(actual, is(false));
+	}
+	
+	@Test
+	public void isAdultでageが20以上のインスタンスを渡したときtrueが得られるかどうか() throws Exception {
+		// SetUp
+		User sut = new User("test ", "pass", 20);
+		// Exercise
+		boolean actual = UserUtil.isAdult(sut);
+		// Verify
+		assertThat(actual, is(true));
+	}
+	
+	@Test
+	public void isAdultでageが20未満のインスタンスを渡したときfalseが得られるかどうか() throws Exception {
+		// SetUp
+		User sut = new User("test", "pass", 19);
+		// Exercise
+		boolean actual = UserUtil.isAdult(sut);
+		// Verify
+		assertThat(actual, is(false));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void isAdultでnullを渡したときにIllegalArgumentExceptionが送出されるかどうか() throws Exception {
+		// SetUp
+		User sut = null;
+		// Verify
+		UserUtil.isAdult(sut);
+	}
+	
+	@Test
+	public void displayUserDataで期待された内容がコンソールに出力されるかどうか() throws Exception {
+		// SetUp
+		User sut = new User("test", "pass", 1);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(out));
+		final String LINE_SEPARATOR = System.getProperty("line.separator");
+		// Exercise
+		UserUtil.displayUserData(sut);
+		// Verify
+		assertThat(out.toString(), is("氏名：test" + LINE_SEPARATOR + "年齢：1" + LINE_SEPARATOR));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void displayUserDataにnullを渡したときにIllegalArgumentExceptionが送出されるかどうか() throws Exception {
+		// SetUp
+		User sut = null;
+		// Verify
+		UserUtil.displayUserData(sut);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void displayUserDataにpasswordがnullのインスタンスを渡した場合IllegalStateExceptionが送出されるかどうか() throws Exception {
+		// SetUp
+		User sut = new User("test", null, 1);
+		// Verify
+		UserUtil.displayUserData(sut);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void displayUserDataにpasswordが空文字のインスタンスを渡した場合IllegalStateExceptionが送出されるかどうか() throws Exception {
+		// SetUp
+		User sut = new User("test", "", 1);
+		// Verify
+		UserUtil.displayUserData(sut);
 	}
 }
