@@ -12,8 +12,11 @@ import java.util.Date;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import com.hiroshi.hara.testRunner.IgnoreTest;
 
 /**
  * @author HiroshiHara
@@ -78,27 +81,31 @@ public class UserTest {
 		assertThat(date, is(dateOf(2019, 1, 28)));
 	}
 	
-	@Ignore
+	// Categoryアノテーションでテストクラスをカテゴライズできる。
+	// カテゴライズするためには振り分け先のテストインターフェースを定義しておく。
+	// カテゴライズしたテストはテストスイートにてExcludeCategoryアノテーションを
+	// 指定することで除外することが可能。
+	@Category(IgnoreTest.class)
 	public void testSetUserName() throws Exception {
 		
 	}
 	
-	@Ignore
+	@Category(IgnoreTest.class)
 	public void testGetPassword() throws Exception {
 		
 	}
 	
-	@Ignore
+	@Category(IgnoreTest.class)
 	public void testSetPassword() throws Exception {
 		
 	}
 	
-	@Ignore
+	@Category(IgnoreTest.class)
 	public void testGetAge() throws Exception {
 		
 	}
 	
-	@Ignore
+	@Category(IgnoreTest.class)
 	public void testSetAge() throws Exception {
 		
 	}
