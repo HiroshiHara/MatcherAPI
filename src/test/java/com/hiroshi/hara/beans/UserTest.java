@@ -6,6 +6,9 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.*;
+import static com.hiroshi.hara.customMatcher.IsDate.dateOf;
+
+import java.util.Date;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -60,6 +63,12 @@ public class UserTest {
 		// instanceOfメソッド(実測値が期待するクラスと互換性を持つ方であるかどうかを比較する)
 		assertThat(actual, is(instanceOf(String.class)));
 		
+	}
+	
+	@Test
+	public void カスタムMatcherによる日付の比較() throws Exception {
+		Date date = new Date();
+		assertThat(date, is(dateOf(2019, 1, 28)));
 	}
 	
 	@Ignore
