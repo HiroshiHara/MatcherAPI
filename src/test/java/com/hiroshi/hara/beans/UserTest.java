@@ -12,12 +12,19 @@ import java.util.Date;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
  * @author HiroshiHara
  * @version 1.0
  */
 
+// RunWithアノテーションでテストランナーを指定する。
+// 明示的にRunWithアノテーションを記述しなかった場合、
+// 下記のようなJUnit4クラスが適用される。
+// JUnit4の場合、Testアノテーションが付与されたすべてのメソッドが実行される。
+@RunWith(JUnit4.class)
 public class UserTest {
 
 	@Test
